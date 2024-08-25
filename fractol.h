@@ -10,12 +10,7 @@
 #define WIN_WIDTH 800
 #define WIN_TITLE "Mandelbrot - set"
 
-#define COORD_MIN_X -2
-#define COORD_MAX_X 2
-#define COORD_MIN_Y +2
-#define COORD_MAX_Y -2
-
-#define ITERATIONS 42
+#define ITERATIONS 100
 #define ESCAPE_VALUE 4
 
 // colors
@@ -50,6 +45,15 @@ typedef struct  s_fractal {
 	void	*connection;
 	void	*win;
     t_img   img;
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
+	double	min_x;
+	double 	min_y;
+	double 	max_x;
+	double  max_y;
+	double	center_a;
+	double  center_b;
 }			    t_fractal;
 
 
@@ -67,5 +71,7 @@ t_complex       square_complex(t_complex number);
 // mlx_utils
 void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
+// rendering
+void			fractal_rendering(t_fractal *fractal);
 
 #endif
