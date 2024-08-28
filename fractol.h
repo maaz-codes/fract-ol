@@ -6,31 +6,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define WIN_HEIGHT 800
-#define WIN_WIDTH 800
-#define WIN_TITLE "Mandelbrot - set"
+#define WIN_HEIGHT 				800
+#define WIN_WIDTH 				800
 
-#define ITERATIONS 100
-#define ESCAPE_VALUE 4
+#define ITERATIONS 				100
+#define ESCAPE_VALUE 			4
+
+// fractals
+#define MANDELBROT "mandelbrot"
+#define JULIA "julia"
 
 // colors
-#define COLOR_BLACK      0x000000  // Black
-#define COLOR_WHITE      0xFFFFFF  // White
-#define COLOR_RED        0xFF0000  // Red
-#define COLOR_GREEN      0x00FF00  // Green
-#define COLOR_BLUE       0x0000FF  // Blue
-#define COLOR_YELLOW     0xFFFF00  // Yellow
-#define COLOR_CYAN       0x00FFFF  // Cyan
-#define COLOR_MAGENTA    0xFF00FF  // Magenta
-#define COLOR_ORANGE     0xFFA500  // Orange
-#define COLOR_PURPLE     0x800080  // Purple
-#define COLOR_PINK       0xFFC0CB  // Pink
-#define COLOR_BROWN      0xA52A2A  // Brown
-#define COLOR_GRAY       0x808080  // Gray
-#define COLOR_NAVY       0x000080  // Navy
-#define COLOR_TEAL       0x008080  // Teal
-#define COLOR_LIME       0x00FF00  // Lime
+#define COLOR_BLACK      		0x000000
+#define COLOR_WHITE     	 	0xFFFFFF
 
+#define COLOR_BLUE_VIOLET 		0x8A2BE2
+#define COLOR_MAGENTA     		0xFF00FF
+
+#define COLOR_DARK_GREEN 		0x006400
+#define COLOR_BRIGHT_GREEN 		0x00FF00
+
+#define COLOR_PURPLE     		0x800080
+#define COLOR_ELECTRIC_PURPLE	0xBF00FF
 
 
 typedef struct  s_img {
@@ -44,16 +41,14 @@ typedef struct  s_img {
 typedef struct  s_fractal {
 	void	*connection;
 	void	*win;
+	char 	*name;
     t_img   img;
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
-	double	min_x;
-	double 	min_y;
-	double 	max_x;
-	double  max_y;
-	double	center_a;
-	double  center_b;
+	double	c_x;
+	double  c_y;
+	int		color_theme;
 }			    t_fractal;
 
 
@@ -73,5 +68,26 @@ void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
 
 // rendering
 void			fractal_rendering(t_fractal *fractal);
+
+// events
+int 			handle_mouse_click(int keycode,int x, int y, t_fractal *fractal);
+int 			handle_key_release(int keycode, t_fractal *fractal);
+int 			handle_no_event(t_fractal *fractal);
+void 			clean_exit(t_fractal *fractal); 
+
+// libft
+void 			ft_putstr_fd(char *s, int fd);
+int 			ft_strncmp(const char *s1, const char *s2, size_t n);
+double			ft_atof(const char *str);
+
+// errors
+int 			fractal_menu();
+int				check_complex(const char *str);
+int 			check_args(int ac, char **av, t_fractal *fractal);
+
+// fractals
+int 			mandelbrot(t_fractal *fractal);
+int 			julia(char *num1, char *num2, t_fractal *fractal);
+
 
 #endif
