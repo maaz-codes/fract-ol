@@ -50,7 +50,7 @@ int check_args(int ac, char **av, t_fractal *fractal)
     else if (ac == 3)
     {
         if (!ft_strncmp(av[1], "julia", 6))
-            return (julia(av[2], 0, fractal));
+            return (julia(av[2], "0", fractal));
     }
     else if (ac == 4)
         if (!ft_strncmp(av[1], "julia", 6))
