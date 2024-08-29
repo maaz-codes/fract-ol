@@ -3,22 +3,22 @@
 static int color_themes(int i, t_fractal *fractal)
 {
     if (fractal->color_theme == 1)
-        return ((int)scale(i, COLOR_WHITE, COLOR_BLACK, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_WHITE, COLOR_BLACK, 0, fractal->iterations));
     else if (fractal->color_theme == 2)
-        return ((int)scale(i, COLOR_BLACK, COLOR_DARK_GREEN, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_BLACK, COLOR_DARK_GREEN, 0, fractal->iterations));
     else if (fractal->color_theme == 3)
-        return ((int)scale(i, COLOR_PURPLE, COLOR_ELECTRIC_PURPLE, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_PURPLE, COLOR_ELECTRIC_PURPLE, 0, fractal->iterations));
     else if (fractal->color_theme == 4)
-        return ((int)scale(i, COLOR_MAGENTA, COLOR_BLUE_VIOLET, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_MAGENTA, COLOR_BLUE_VIOLET, 0, fractal->iterations));
     else if (fractal->color_theme < 1)
     {
         fractal->color_theme = 4;
-        return ((int)scale(i, COLOR_MAGENTA, COLOR_BLUE_VIOLET, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_MAGENTA, COLOR_BLUE_VIOLET, 0, fractal->iterations));
     }
     else
     {
         fractal->color_theme = 1;
-        return ((int)scale(i, COLOR_BLACK, COLOR_WHITE, 0, ITERATIONS));
+        return ((int)scale(i, COLOR_BLACK, COLOR_WHITE, 0, fractal->iterations));
     }
 }
 
@@ -31,14 +31,18 @@ static void color_pxl(int x, int y, t_fractal *fractal)
 
     z.x = (scale(x, -2, 2, 0, WIN_WIDTH) * fractal->zoom) + fractal->shift_x;
     z.y = (scale(y, 2, -2, 0, WIN_HEIGHT) * fractal->zoom) + fractal->shift_y;
-    // Mandelbrot
-    // c.x = z.x;
-    // c.y = z.y;
-    // Julia
-    c.x = fractal->c_x;
-    c.y = fractal->c_y;
+    if (!ft_strncmp(fractal->name, "mandelbrot", 10))
+    {
+        c.x = z.x;
+        c.y = z.y;
+    }
+    else
+    {
+        c.x = fractal->julia_x;
+        c.y = fractal->julia_y;
+    }
     i = 0;
-    while (i < ITERATIONS)
+    while (i < fractal->iterations)
     {
         z = add_complex(square_complex(z), c);
         if ((z.x * z.x) + (z.y * z.y) > ESCAPE_VALUE)

@@ -9,7 +9,7 @@
 #define WIN_HEIGHT 				800
 #define WIN_WIDTH 				800
 
-#define ITERATIONS 				100
+// #define ITERATIONS 				100
 #define ESCAPE_VALUE 			4
 
 // fractals
@@ -29,6 +29,20 @@
 #define COLOR_PURPLE     		0x800080
 #define COLOR_ELECTRIC_PURPLE	0xBF00FF
 
+// keys
+#define KEY_LEFT 123
+#define KEY_RIGHT 124
+#define KEY_UP 126
+#define KEY_DOWN 125
+#define KEY_PLUS 24
+#define KEY_MINUS 27
+#define KEY_SPACE_BAR 49 
+#define KEY_ESC 53
+#define KEY_I 34
+#define KEY_O 31
+#define KEY_P 35
+
+
 
 typedef struct  s_img {
 	void	*img;
@@ -46,9 +60,11 @@ typedef struct  s_fractal {
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
-	double	c_x;
-	double  c_y;
+	double	julia_x;
+	double  julia_y;
 	int		color_theme;
+	int		iterations;
+	int 	motion_flag;
 }			    t_fractal;
 
 
@@ -70,9 +86,10 @@ void            my_mlx_pixel_put(t_img *data, int x, int y, int color);
 void			fractal_rendering(t_fractal *fractal);
 
 // events
-int 			handle_mouse_click(int keycode,int x, int y, t_fractal *fractal);
+int 			handle_mouse_click(int keycode, int x, int y, t_fractal *fractal);
 int 			handle_key_release(int keycode, t_fractal *fractal);
 int 			handle_no_event(t_fractal *fractal);
+int 			handle_mouse_motion(int mouse_x, int mouse_y, t_fractal *fractal);
 void 			clean_exit(t_fractal *fractal); 
 
 // libft
@@ -88,6 +105,9 @@ int 			check_args(int ac, char **av, t_fractal *fractal);
 // fractals
 int 			mandelbrot(t_fractal *fractal);
 int 			julia(char *num1, char *num2, t_fractal *fractal);
+
+// main
+void 			reset_fractal(t_fractal *fractal);
 
 
 #endif
