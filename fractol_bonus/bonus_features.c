@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus.c                                            :+:      :+:    :+:   */
+/*   bonus_features.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maakhan <maakhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:28:22 by maakhan           #+#    #+#             */
-/*   Updated: 2024/08/31 13:40:06 by maakhan          ###   ########.fr       */
+/*   Updated: 2024/08/31 20:38:26 by maakhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
-#include <math.h>
 
 int	burning_ship(t_fractal *fractal)
 {
@@ -29,14 +28,14 @@ void	algo_burning_ship(int x, int y, t_fractal *fractal)
 	int			color;
 
 	z.x = (scale(x, -2, 2) * fractal->zoom) + fractal->shift_x;
-	z.y = (scale(y, -2, 2) * fractal->zoom) + fractal->shift_y;
+	z.y = (scale(y, 2, -2) * fractal->zoom) + fractal->shift_y;
 	c.x = z.x;
 	c.y = z.y;
 	i = 0;
 	while (i < fractal->iterations)
 	{
 		z.x = fabs(z.x);
-		z.y = fabs(z.y);
+		z.y = (-1) * fabs(z.y);
 		z = add_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > ESCAPE_VALUE)
 		{
@@ -61,19 +60,13 @@ void	zoom_bonus(t_fractal *fractal, int mouse_x, int mouse_y, int flag)
 	screen_x = 0;
 	screen_y = 0;
 	x = (scale(mouse_x, -2, 2) * fractal->zoom) + fractal->shift_x;
-	if (!ft_strncmp(fractal->name, "burning_ship", 13))
-		y = (scale(mouse_y, -2, 2) * fractal->zoom) + fractal->shift_y;
-	else
-		y = (scale(mouse_y, 2, -2) * fractal->zoom) + fractal->shift_y;
+	y = (scale(mouse_y, 2, -2) * fractal->zoom) + fractal->shift_y;
 	if (flag == 1)
 		fractal->zoom /= 1.25;
 	else if (flag == -1)
 		fractal->zoom *= 1.25;
 	screen_x = (scale(mouse_x, -2, 2) * fractal->zoom) + fractal->shift_x;
-	if (!ft_strncmp(fractal->name, "burning_ship", 13))
-		screen_y = (scale(mouse_y, -2, 2) * fractal->zoom) + fractal->shift_y;
-	else
-		screen_y = (scale(mouse_y, 2, -2) * fractal->zoom) + fractal->shift_y;
+	screen_y = (scale(mouse_y, 2, -2) * fractal->zoom) + fractal->shift_y;
 	fractal->shift_x += (x - screen_x);
 	fractal->shift_y += (y - screen_y);
 }
