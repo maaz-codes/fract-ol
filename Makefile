@@ -1,6 +1,7 @@
 NAME = fractol
 
-SRC = fractol.c maths.c mlx_utils.c rendering.c events.c libft.c errors.c fractal_types.c dragging.c 
+SRC = fractol.c maths.c mlx_utils.c rendering.c events.c libft.c errors.c \
+		mandelbrot.c julia.c bonus.c 
 
 OBJ = $(SRC:.c=.o)
 
