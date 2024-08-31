@@ -1,4 +1,5 @@
 #include "fractol.h"
+#include <math.h>
 
 static int color_themes(int i, t_fractal *fractal)
 {
@@ -29,21 +30,15 @@ static void color_pxl(int x, int y, t_fractal *fractal)
     int i;
     int color;
 
-    z.x = (scale(x, -2, 2, 0, WIN_WIDTH) * fractal->zoom) + fractal->shift_x;
-    z.y = (scale(y, 2, -2, 0, WIN_HEIGHT) * fractal->zoom) + fractal->shift_y;
-    if (!ft_strncmp(fractal->name, "mandelbrot", 10))
-    {
-        c.x = z.x;
-        c.y = z.y;
-    }
-    else
-    {
-        c.x = fractal->julia_x;
-        c.y = fractal->julia_y;
-    }
+    fractal_values(x, y, fractal, &z, &c);
     i = 0;
     while (i < fractal->iterations)
     {
+        if (!ft_strncmp(fractal->name, "burning_ship", 13))
+        {
+            z.x = fabs(z.x);
+            z.y = fabs(-z.y);
+        }
         z = add_complex(square_complex(z), c);
         if ((z.x * z.x) + (z.y * z.y) > ESCAPE_VALUE)
         {

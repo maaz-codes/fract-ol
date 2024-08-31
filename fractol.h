@@ -8,13 +8,13 @@
 
 #define WIN_HEIGHT 				800
 #define WIN_WIDTH 				800
+#define MIN_X					-2
+#define MAX_X					2
+#define MIN_Y     				2
+#define MAX_Y					-2
 
 // #define ITERATIONS 				100
 #define ESCAPE_VALUE 			4
-
-// fractals
-#define MANDELBROT "mandelbrot"
-#define JULIA "julia"
 
 // colors
 #define COLOR_BLACK      		0x000000
@@ -34,13 +34,13 @@
 #define KEY_RIGHT 124
 #define KEY_UP 126
 #define KEY_DOWN 125
-#define KEY_PLUS 24
-#define KEY_MINUS 27
-#define KEY_SPACE_BAR 49 
-#define KEY_ESC 53
-#define KEY_I 34
-#define KEY_O 31
-#define KEY_P 35
+#define KEY_PLUS 24 // color change
+#define KEY_MINUS 27 // color change
+#define KEY_SPACE_BAR 49 // pause animation
+#define KEY_ESC 53 // exits
+#define KEY_I 34 // iterations ++
+#define KEY_O 31 // iterations --
+#define KEY_P 35 // pause motion_track
 
 
 
@@ -65,14 +65,16 @@ typedef struct  s_fractal {
 	int		color_theme;
 	int		iterations;
 	int 	motion_flag;
+	int			middle_click;
 }			    t_fractal;
 
 
 typedef struct  s_complex
 {
-    double x; //real
-    double y; //imaginary
+    double x; 
+    double y; 
 }               t_complex;
+
 
 // maths
 double          scale(double num, double new_min, double new_max, double old_min, double old_max);
@@ -90,7 +92,7 @@ int 			handle_mouse_click(int keycode, int x, int y, t_fractal *fractal);
 int 			handle_key_release(int keycode, t_fractal *fractal);
 int 			handle_no_event(t_fractal *fractal);
 int 			handle_mouse_motion(int mouse_x, int mouse_y, t_fractal *fractal);
-void 			clean_exit(t_fractal *fractal); 
+int 			handle_closing(t_fractal *fractal); 
 
 // libft
 void 			ft_putstr_fd(char *s, int fd);
@@ -105,9 +107,10 @@ int 			check_args(int ac, char **av, t_fractal *fractal);
 // fractals
 int 			mandelbrot(t_fractal *fractal);
 int 			julia(char *num1, char *num2, t_fractal *fractal);
+int				burning_ship(t_fractal *fractal);
+void 			fractal_values(int x, int y, t_fractal *fractal, t_complex *z, t_complex *c);
 
 // main
 void 			reset_fractal(t_fractal *fractal);
-
 
 #endif

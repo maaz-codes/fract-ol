@@ -35,6 +35,7 @@ int main(int ac, char **av)
         mlx_key_hook(fractal.win, handle_key_release, &fractal);
         mlx_mouse_hook(fractal.win, handle_mouse_click, &fractal);
         mlx_hook(fractal.win, 6, 6, handle_mouse_motion, &fractal);
+        mlx_hook(fractal.win, 17, 6, handle_closing, &fractal);
         mlx_loop(fractal.connection);
         mlx_destroy_window(fractal.connection, fractal.win);
         free(fractal.connection);
