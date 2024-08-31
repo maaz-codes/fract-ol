@@ -1,45 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maakhan <maakhan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:02:12 by maakhan           #+#    #+#             */
-/*   Updated: 2024/08/31 10:29:31 by maakhan          ###   ########.fr       */
+/*   Updated: 2024/08/31 13:36:57 by maakhan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include <math.h>
-
-int	color_themes(int i, t_fractal *fractal)
-{
-	double	j;
-
-	j = i;
-	if (fractal->color_theme == 1)
-		return ((COLOR_BLACK - COLOR_WHITE) * (i - 0) / (fractal->iterations
-				- 0) + COLOR_WHITE);
-	else if (fractal->color_theme == 2)
-		return ((COLOR_BLACK - COLOR_DARK_GREEN) * (i - 0)
-			/ (fractal->iterations - 0) + COLOR_DARK_GREEN);
-	else if (fractal->color_theme == 3)
-		return ((COLOR_MAGENTA - COLOR_BLUE_VIOLET) * (i - 0)
-			/ (fractal->iterations - 0) + COLOR_BLUE_VIOLET);
-	else if (fractal->color_theme < 1)
-	{
-		fractal->color_theme = 3;
-		return ((COLOR_MAGENTA - COLOR_BLUE_VIOLET) * (i - 0)
-			/ (fractal->iterations - 0) + COLOR_BLUE_VIOLET);
-	}
-	else
-	{
-		fractal->color_theme = 1;
-		return ((COLOR_BLACK - COLOR_WHITE) * (i - 0) / (fractal->iterations
-				- 0) + COLOR_WHITE);
-	}
-}
 
 void	color_pxl(int x, int y, t_fractal *fractal)
 {
